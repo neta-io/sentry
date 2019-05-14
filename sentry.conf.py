@@ -100,6 +100,7 @@ SENTRY_USE_BIG_INTS = True
 # Instruct Sentry that this install intends to be run by a single organization
 # and thus various UI optimizations should be enabled.
 SENTRY_SINGLE_ORGANIZATION = env('SENTRY_SINGLE_ORGANIZATION', True)
+SENTRY_BEACON = env('SENTRY_BEACON', False)
 
 #########
 # Redis #
@@ -300,6 +301,8 @@ ENV_CONFIG_MAPPING = {
 
     'SENTRY_VSTS_CLIENT_ID': 'vsts.client-id',
     'SENTRY_VSTS_CLIENT_SECRET': 'vsts.client-secret',
+
+    'SENTRY_URL': 'system.url-prefix',
 }
 
 
@@ -356,3 +359,11 @@ if 'GITHUB_APP_ID' in os.environ:
 if 'BITBUCKET_CONSUMER_KEY' in os.environ:
     BITBUCKET_CONSUMER_KEY = env('BITBUCKET_CONSUMER_KEY')
     BITBUCKET_CONSUMER_SECRET = env('BITBUCKET_CONSUMER_SECRET')
+
+if 'SENTRY_GOOGLE_CLIENT_ID' in os.environ:
+    GOOGLE_OAUTH2_CLIENT_ID = env('SENTRY_GOOGLE_CLIENT_ID')
+    GOOGLE_OAUTH2_CLIENT_SECRET = env('SENTRY_GOOGLE_CLIENT_SECRET')
+    GOOGLE_CLIENT_ID = GOOGLE_OAUTH2_CLIENT_ID
+    GOOGLE_CLIENT_SECRET = GOOGLE_OAUTH2_CLIENT_SECRET
+    SENTRY_OPTIONS['auth-google.client-id'] = GOOGLE_OAUTH2_CLIENT_ID
+    SENTRY_OPTIONS['auth-google.client-secret'] = GOOGLE_OAUTH2_CLIENT_SECRET
