@@ -13,20 +13,14 @@ x-defaults: &defaults
   build: .
   depends_on:
     - memcached
-    - smtp
   env_file: .env
   environment:
     SENTRY_MEMCACHED_HOST: memcached
-    SENTRY_EMAIL_HOST: smtp
   volumes:
     - sentry-data:/var/lib/sentry/files
 
 
 services:
-  smtp:
-    restart: unless-stopped
-    image: tianon/exim4
-
   memcached:
     restart: unless-stopped
     image: memcached:1.5-alpine
